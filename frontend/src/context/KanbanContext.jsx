@@ -39,6 +39,33 @@ export const KanbanProvider = ({ children }) => {
     }
   };
 
+  const editSection = async (sectionId, newTitle) => {
+    try {
+      const response = await axios.patch(`/api/sections/${sectionId}`, { title: newTitle });
+      setSections((prev) =>
+        prev.map((section) =>
+          section._id === sectionId ? { ...section, title: response.data.title } : section
+        )
+      );
+      toast.success("Section updated successfully");
+    } catch (error) {
+      console.error("Error editing section:", error);
+      toast.error("Error updating section");
+    }
+  };
+  
+  const deleteSection = async (sectionId) => {
+    try {
+      await axios.delete(`/api/sections/${sectionId}`);
+      setSections((prev) => prev.filter((section) => section._id !== sectionId));
+      toast.success("Section deleted successfully");
+    } catch (error) {
+      console.error("Error deleting section:", error);
+      toast.error("Error deleting section");
+    }
+  };
+  
+
   const addTask = async (sectionId, taskData) => {
     try {
       const response = await axios.post(`/api/sections/${sectionId}/tasks`, taskData);
@@ -127,6 +154,8 @@ export const KanbanProvider = ({ children }) => {
       value={{
         sections,
         addSection,
+        editSection,
+        deleteSection,
         addTask,
         editTask,
         deleteTask,
