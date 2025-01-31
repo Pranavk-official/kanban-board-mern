@@ -46,7 +46,8 @@ A Kanban board application built with the MERN stack (MongoDB, Express, React, N
 ## Configuration
 Create a `.env` file in the `backend` directory and add your MongoDB connection string:
 ```env
-MONGODB_URI=mongodb://localhost:27017/kanban-board
+MONGODB_URI = "mongodb://localhost:27017/kanban-board"
+PORT = "4000"
 ```
 
 ## License
