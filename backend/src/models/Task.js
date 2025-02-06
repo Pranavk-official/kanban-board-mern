@@ -1,14 +1,41 @@
 import mongoose from 'mongoose';
 
-const sectionSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    tasks: [{
+    description: {
+        type: String,
+        required: true
+    },
+    dueDate: {
+        type: Date,
+        required: true
+    },
+    assignee: {
+        id: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        avatar: {
+            type: String,
+            required: true
+        }
+    },
+    sectionId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Task'
-    }]
+        ref: 'Section',
+        required: true
+    },
+    tag: {
+        type: String,
+        required: true
+    }
 });
 
-export default mongoose.model('Section', sectionSchema);
+export default mongoose.model('Task', taskSchema);
